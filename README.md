@@ -1,12 +1,3 @@
-# Student Information
-
-- *Name:* Bwalya Angel  
-- *Student ID:* 202400350  
-- *Course:* ICT251 Web Technologies  
-- *Lecturer:* Mr. Z. Kaluba  
-
----
-
 # Quadratic Solver & Grade Calculator
 
 This web application solves quadratic equations and converts scores to grades.
