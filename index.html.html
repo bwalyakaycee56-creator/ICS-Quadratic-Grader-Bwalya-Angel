@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quadratic Solver & Grade Converter</title>
+<style>
+    :root {
+        --primary: #00796b;
+        --primary-light: #e0f7fa;
+        --success: #c8e6c9;
+        --success-text: #256029;
+        --warning: #fff9c4;
+        --warning-text: #827717;
+        --error: #ffcdd2;
+        --error-text: #b71c1c;
+        --white: #ffffff;
+        --shadow: rgba(0,0,0,0.1);
+    }
+    
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        line-height: 1.6;
+    }
+    
+    h1 {
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 30px;
+        font-weight: 600;
+        font-size: 28px;
+    }
+    
+    .section {
+        margin-bottom: 30px;
+        padding: 25px;
+        background: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px var(--shadow);
+        transition: transform 0.3s ease;
+    }
+    
+    .section:hover {
+        transform: translateY(-2px);
+    }
+    
+    h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 22px;
+        border-bottom: 2px solid var(--primary-light);
+        padding-bottom: 8px;
+    }
+    
+    .input-group {
+        margin-bottom: 15px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #555;
+    }
+    
+    input {
+        padding: 12px;
+        margin: 5px 0;
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(0, 121, 107, 0.2);
+    }
+    
+    button {
+        padding: 12px;
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 6px;
+        border: none;
+        background-color: var(--primary);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    
+    button:hover {
+        background-color: #00695c;
+        transform: translateY(-2px);
+    }
+    
+    button:active {
+        transform: translateY(0);
+    }
+    
+    .result {
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+    }
+    
+    .success { 
+        background: var(--success); 
+        color: var(--success-text); 
+        border-left: 4px solid var(--success-text);
+    }
+    
+    .warning { 
+        background: var(--warning); 
+        color: var(--warning-text); 
+        border-left: 4px solid var(--warning-text);
+    }
+    
+    .error { 
+        background: var(--error); 
+        color: var(--error-text); 
+        border-left: 4px solid var(--error-text);
+    }
+    
+    .equation {
+        font-style: italic;
+        text-align: center;
+        margin: 10px 0;
+        color: #555;
+    }
+    
+    .info {
+        font-size: 14px;
+        color: #666;
+        margin-top: 5px;
+    }
+    
+    @media (max-width: 480px) {
+        body {
+            margin: 20px auto;
+            padding: 15px;
+        }
+        
+        .section {
+            padding: 15px;
+        }
+        
+        h1 {
+            font-size: 24px;
+        }
+        
+        h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<h1>Quadratic Solver & Grade Converter</h1>
+
+<div class="section">
+    <h2>Quadratic Equation Solver</h2>
+    <p class="equation">ax² + bx + c = 0</p>
+    
+    <div class="input-group">
+        <label for="a">Coefficient a (cannot be 0):</label>
+        <input type="number" id="a" placeholder="Enter a" step="any">
+    </div>
+    
+    <div class="input-group">
+        <label for="b">Coefficient b:</label>
+        <input type="number" id="b" placeholder="Enter b" step="any">
+    </div>
+    
+    <div class="input-group">
+        <label for="c">Coefficient c:</label>
+        <input type="number" id="c" placeholder="Enter c" step="any">
+    </div>
+    
+    <button onclick="solveQuadratic()">Solve Quadratic</button>
+    <div class="result" id="quadraticResult"></div>
+</div>
+
+<div class="section">
+    <h2>Numeric Score to Letter Grade</h2>
+    
+    <div class="input-group">
+        <label for="score">Enter your score (0-100):</label>
+        <input type="number" id="score" placeholder="Enter your score" min="0" max="100" step="0.1">
+    </div>
+    
+    <p class="info">Grading Scale: A (90-100), B (80-89), C (70-79), D (60-69), F (0-59)</p>
+    
+    <button onclick="convertGrade()">Convert Grade</button>
+    <div class="result" id="gradeResult"></div>
+</div>
+
+<script>
+function solveQuadratic() {
+    let a = parseFloat(document.getElementById('a').value);
+    let b = parseFloat(document.getElementById('b').value);
+    let c = parseFloat(document.getElementById('c').value);
+    let resultDiv = document.getElementById('quadraticResult');
+
+    // Reset result div
+    resultDiv.className = "result";
+    
+    // Validation
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        resultDiv.innerText = "Please enter valid numbers for all coefficients.";
+        resultDiv.classList.add("error");
+        return;
+    }
+    
+    if (a === 0) {
+        resultDiv.innerText = "Not a quadratic equation (a cannot be 0).";
+        resultDiv.classList.add("error");
+        return;
+    }
+
+    // Calculate discriminant
+    let discriminant = b*b - 4*a*c;
+    
+    // Format numbers to avoid -0.00
+    function formatNumber(num) {
+        if (Math.abs(num) < 1e-10) return 0;
+        return parseFloat(num.toFixed(4));
+    }
+
+    // Calculate roots based on discriminant
+    if (discriminant > 0) {
+        let root1 = (-b + Math.sqrt(discriminant)) / (2*a);
+        let root2 = (-b - Math.sqrt(discriminant)) / (2*a);
+        resultDiv.innerText = Two distinct real roots: x₁ = ${formatNumber(root1)}, x₂ = ${formatNumber(root2)};
+        resultDiv.classList.add("success");
+    } else if (discriminant === 0) {
+        let root = -b / (2*a);
+        resultDiv.innerText = One real root (repeated): x = ${formatNumber(root)};
+        resultDiv.classList.add("warning");
+    } else {
+        let realPart = -b / (2*a);
+        let imaginaryPart = Math.sqrt(-discriminant) / (2*a);
+        
+        // Format complex roots
+        let realFormatted = formatNumber(realPart);
+        let imagFormatted = formatNumber(imaginaryPart);
+        
+        if (realFormatted === 0) {
+            resultDiv.innerText = Two complex roots: x₁ = ${imagFormatted}i, x₂ = -${imagFormatted}i;
+        } else {
+            resultDiv.innerText = Two complex roots: x₁ = ${realFormatted} + ${imagFormatted}i, x₂ = ${realFormatted} - ${imagFormatted}i;
+        }
+        resultDiv.classList.add("warning");
+    }
+}
+
+function convertGrade() {
+    let score = parseFloat(document.getElementById('score').value);
+    let gradeDiv = document.getElementById('gradeResult');
+
+    // Reset result div
+    gradeDiv.className = "result";
+    
+    // Validation
+    if (isNaN(score) || score < 0 || score > 100) {
+        gradeDiv.innerText = "Please enter a valid score between 0 and 100.";
+        gradeDiv.classList.add("error");
+        return;
+    }
+
+    // Determine grade
+    let grade = "";
+    let colorClass = "";
+    
+    if (score >= 90) {
+        grade = "A";
+        colorClass = "success";
+    } else if (score >= 80) {
+        grade = "B";
+        colorClass = "warning";
+    } else if (score >= 70) {
+        grade = "C";
+        colorClass = "warning";
+    } else if (score >= 60) {
+        grade = "D";
+        colorClass = "error";
+    } else {
+        grade = "F";
+        colorClass = "error";
+    }
+
+    gradeDiv.innerText = Score: ${score} | Grade: ${grade};
+    gradeDiv.classList.add(colorClass);
+}
+</script>
+
+</body>
+</html>
