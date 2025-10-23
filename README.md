@@ -1,10 +1,19 @@
+# Student Information
+
+- *Name:* Bwalya Angel  
+- *Student ID:* 202400350  
+- *Course:* ICT251 Web Technologies  
+- *Lecturer:* Mr. Z. Kaluba  
+
+---
+
 # Quadratic Solver & Grade Calculator
 
 This web application solves quadratic equations and converts scores to grades.
 
 ## Features
 - *Quadratic Equation Solver*: Solves equations of the form ax² + bx + c = 0
-- *Grade Calculator*: Converts scores (0-100) to letter grades (A+, A, B+, B, C+, C, D)
+- *Grade Calculator*: Converts scores (0-100) to letter grades
 
 ## How to Use
 1. Download the index.html file
@@ -18,6 +27,4 @@ This web application solves quadratic equations and converts scores to grades.
 - B (60-64)
 - C+ (55-59)
 - C (50-54)
-- D (0-49)
-
-No installation needed - works offline!
+- D (0-49)
